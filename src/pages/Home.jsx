@@ -37,22 +37,38 @@ const Home = () => {
         <FloatingShape style={{ width: 500, height: 500, top: '-15%', left: '-10%', background: 'var(--primary)' }} />
         <FloatingShape style={{ width: 400, height: 400, bottom: '-10%', right: '-8%', background: 'var(--accent)', animationDelay: '2s' }} />
         <FloatingShape style={{ width: 200, height: 200, top: '20%', right: '15%', background: 'var(--purple)', animationDelay: '4s' }} />
+        <FloatingShape style={{ width: 150, height: 150, bottom: '15%', left: '20%', background: 'var(--warning-light)', animationDelay: '3s' }} />
 
-        <div className="hero-badge">
+        <div className="hero-badge" style={{
+          animation: 'fadeInUp 0.6s ease-out, badgeGlow 3s ease-in-out infinite',
+        }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-              <circle cx="12" cy="13" r="4" />
+              <path d="M12 2L9.5 8.5 3 12l6.5 3.5L12 22l2.5-6.5L21 12l-6.5-3.5L12 2z" />
             </svg>
-            AI-Powered Waste Management
+            AI-Powered 
         </div>
 
         <h1 className="hero-title" style={{ maxWidth: '800px' }}>
-          Turn <span>Waste</span> Into <span>Impact</span>
+          From <span style={{
+            background: 'linear-gradient(90deg, var(--primary) 0%, var(--accent) 25%, var(--primary) 50%, var(--accent) 75%, var(--primary) 100%)',
+            backgroundSize: '200% auto',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            animation: 'textShimmer 4s linear infinite',
+          }}>Segregation</span> to <span style={{
+            background: 'linear-gradient(90deg, var(--primary) 0%, var(--accent) 25%, var(--primary) 50%, var(--accent) 75%, var(--primary) 100%)',
+            backgroundSize: '200% auto',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            animation: 'textShimmer 4s linear infinite 0.5s',
+          }}>Reforestation</span>
         </h1>
 
         <p className="hero-subtitle" style={{ maxWidth: '580px' }}>
-          Snap a photo of your sorted waste, get instant AI-powered analysis,
-          earn eco-points, and start Plant Quests to track real growth.
+          Sort your waste with AI guidance, earn eco-points, and use them to
+          plant real trees you can watch grow — all from one app.
         </p>
 
         <div className="hero-actions">
@@ -74,14 +90,22 @@ const Home = () => {
           </div>
           <div className="hero-stat">
             <div className="hero-stat-value">AI</div>
-            <div className="hero-stat-label">Powered Analysis</div>
+            <div className="hero-stat-label">Waste Analysis</div>
           </div>
           <div className="hero-stat">
-            <div className="hero-stat-value">24/7</div>
-            <div className="hero-stat-label">Available</div>
+            <div className="hero-stat-value">Real</div>
+            <div className="hero-stat-label">Trees Planted</div>
           </div>
         </div>
       </div>
+
+      {/* DIVIDER */}
+      <div style={{
+        maxWidth: '200px',
+        height: '2px',
+        margin: '0 auto',
+        background: 'linear-gradient(90deg, transparent, var(--primary-200), transparent)',
+      }} />
 
       {/* HOW IT WORKS */}
       <div className="features-section">
@@ -104,7 +128,7 @@ const Home = () => {
             Simple Process
           </div>
           <h2 className="features-section-title">How It Works</h2>
-          <p className="features-section-subtitle">Three simple steps to make a difference</p>
+          <p className="features-section-subtitle">Segregate, earn, and plant — three steps to a greener planet</p>
         </div>
 
         <div style={{
@@ -124,7 +148,7 @@ const Home = () => {
                 </svg>
               ),
               title: 'Snap & Sort',
-              desc: 'Take a photo of your sorted waste and upload it with drag & drop',
+              desc: 'Photograph your segregated waste — AI instantly evaluates your sorting and scores it',
               color: 'var(--primary)',
               bg: 'var(--primary-50)',
             },
@@ -139,7 +163,7 @@ const Home = () => {
                 </svg>
               ),
               title: 'Analyze',
-              desc: 'AI scans, detects objects, evaluates segregation & scores you out of 100',
+              desc: 'AI scans each item, rates your segregation quality, and awards eco-points for good habits',
               color: 'var(--accent)',
               bg: 'var(--accent-50)',
             },
@@ -152,7 +176,7 @@ const Home = () => {
                 </svg>
               ),
               title: 'Redeem',
-              desc: 'Earn eco-points for good segregation and redeem them for real rewards',
+              desc: 'Convert your eco-points into real tree plantations and track their growth over time',
               color: 'var(--purple)',
               bg: 'var(--purple-bg)',
             },
@@ -167,10 +191,12 @@ const Home = () => {
                 textAlign: 'center',
                 transition: 'all 0.3s ease',
                 cursor: 'default',
+                position: 'relative',
+                overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-6px)';
-                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0,0,0,0.08)';
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.boxShadow = `0 20px 25px -5px rgba(0,0,0,0.1), 0 0 30px ${step.color}15`;
                 e.currentTarget.style.borderColor = step.color;
               }}
               onMouseLeave={(e) => {
@@ -179,6 +205,18 @@ const Home = () => {
                 e.currentTarget.style.borderColor = 'var(--border)';
               }}
               >
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '3px',
+                  background: `linear-gradient(90deg, transparent, ${step.color}, transparent)`,
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease',
+                }}
+                className="step-stripe"
+                />
                 <div style={{
                   width: '64px',
                   height: '64px',
@@ -189,7 +227,10 @@ const Home = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: step.color,
-                }}>
+                  transition: 'all 0.3s ease',
+                }}
+                className="step-icon-wrap"
+                >
                   {step.icon}
                 </div>
                 <div style={{
@@ -216,6 +257,14 @@ const Home = () => {
         </div>
       </div>
 
+      {/* DIVIDER */}
+      <div style={{
+        maxWidth: '200px',
+        height: '2px',
+        margin: '0 auto',
+        background: 'linear-gradient(90deg, transparent, var(--warning-border), transparent)',
+      }} />
+
       {/* LEVEL SYSTEM SHOWCASE */}
       <div style={{
         padding: '80px 24px',
@@ -241,7 +290,7 @@ const Home = () => {
             Gamification
           </div>
           <h2 className="features-section-title">Level Up Your Impact</h2>
-          <p className="features-section-subtitle">Progress through 6 levels as you make the planet greener</p>
+          <p className="features-section-subtitle">Every sorted bag and every planted tree pushes you to the next rank</p>
         </div>
 
         <div style={{
@@ -251,7 +300,19 @@ const Home = () => {
           padding: '8px 0 16px',
           justifyContent: 'center',
           flexWrap: 'wrap',
+          position: 'relative',
         }}>
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '10%',
+            right: '10%',
+            height: '2px',
+            background: 'linear-gradient(90deg, #86efac, #4ade80, #22c55e, #16a34a, #15803d, #166534)',
+            opacity: 0.3,
+            zIndex: 0,
+            borderRadius: '1px',
+          }} />
           {[
             { icon: '🌱', name: 'Seedling', gp: '0 GP', color: '#86efac' },
             { icon: '🌿', name: 'Sprout', gp: '50 GP', color: '#4ade80' },
@@ -267,16 +328,18 @@ const Home = () => {
               border: '2px solid var(--border)',
               borderRadius: 'var(--radius-lg)',
               minWidth: '130px',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
               cursor: 'default',
+              position: 'relative',
+              zIndex: 1,
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = `0 8px 20px ${lvl.color}30`;
+              e.currentTarget.style.transform = 'translateY(-4px) scale(1.03)';
+              e.currentTarget.style.boxShadow = `0 8px 20px ${lvl.color}30, 0 0 20px ${lvl.color}15`;
               e.currentTarget.style.borderColor = lvl.color;
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
               e.currentTarget.style.boxShadow = 'none';
               e.currentTarget.style.borderColor = 'var(--border)';
             }}
@@ -288,6 +351,14 @@ const Home = () => {
           ))}
         </div>
       </div>
+
+      {/* DIVIDER */}
+      <div style={{
+        maxWidth: '200px',
+        height: '2px',
+        margin: '0 auto',
+        background: 'linear-gradient(90deg, transparent, var(--accent-200), transparent)',
+      }} />
 
       {/* FEATURES GRID */}
       <div className="features-section" style={{ background: 'var(--gray-50)', borderRadius: '0', marginTop: '20px' }}>
@@ -310,7 +381,7 @@ const Home = () => {
             Why GreenPulse
           </div>
           <h2 className="features-section-title">Built for the Planet</h2>
-          <p className="features-section-subtitle">Everything you need to make waste segregation a rewarding habit</p>
+          <p className="features-section-subtitle">From smart waste analysis to real tree planting — everything in one place</p>
         </div>
 
         <div style={{
@@ -321,12 +392,12 @@ const Home = () => {
           margin: '0 auto',
         }}>
           {[
-            { icon: '🤖', title: 'AI Classification', desc: 'Advanced AI instantly classifies your waste as Good, Medium, or Bad with detailed feedback' },
-            { icon: '📊', title: 'Score & Feedback', desc: 'Get a detailed score out of 100 with specific suggestions to improve your segregation' },
-            { icon: '🏆', title: 'Level System', desc: 'Progress through 6 levels from Seedling to Planet Savior as you earn more eco-points' },
-            { icon: '🎟️', title: 'Real Rewards', desc: 'Redeem your eco-points for discount coupons and rewards from partner brands' },
-            { icon: '📸', title: 'Snap & Sort', desc: 'Snap a photo of your waste and get instant AI-powered segregation analysis' },
-            { icon: '⚡', title: 'Plant Quest', desc: 'Start a plant growth journey — upload stage photos, verify growth, earn GP' },
+            { icon: '🤖', title: 'AI Waste Classification', desc: 'AI instantly identifies and classifies your segregated waste, rating it from Good to Needs Work', color: 'var(--primary)' },
+            { icon: '📊', title: 'Segregation Score', desc: 'Get a detailed breakdown of your sorting with actionable tips to improve your segregation quality', color: 'var(--accent)' },
+            { icon: '🏆', title: 'Level Progression', desc: 'Climb 6 ranks from Seedling to Planet Savior — the more you sort and plant, the faster you level up', color: '#f59e0b' },
+            { icon: '🎟️', title: 'Real-World Rewards', desc: 'Cash in your eco-points for discount coupons, partner deals, and tangible benefits', color: 'var(--purple)' },
+            { icon: '📸', title: 'Snap & Track', desc: 'Photograph your waste or your growing plants — our AI verifies every step and logs your impact', color: 'var(--primary)' },
+            { icon: '🌳', title: 'Plant Quests', desc: 'Start a tree, upload growth stages, watch it thrive — every verified plant earns you eco-points', color: '#059669' },
           ].map((f) => (
             <div key={f.title} style={{
               padding: '28px',
@@ -335,17 +406,61 @@ const Home = () => {
               borderRadius: 'var(--radius-xl)',
               transition: 'all 0.3s ease',
               cursor: 'default',
+              position: 'relative',
+              overflow: 'hidden',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-4px)';
               e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.08)';
+              e.currentTarget.style.borderColor = f.color;
+              const stripe = e.currentTarget.querySelector('.feature-stripe');
+              if (stripe) stripe.style.opacity = '1';
+              const icon = e.currentTarget.querySelector('.feature-icon-box');
+              if (icon) {
+                icon.style.background = f.color;
+                icon.style.color = 'white';
+                icon.style.boxShadow = `0 4px 14px ${f.color}40`;
+                icon.style.transform = 'scale(1.05)';
+              }
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = 'var(--border)';
+              const stripe = e.currentTarget.querySelector('.feature-stripe');
+              if (stripe) stripe.style.opacity = '0';
+              const icon = e.currentTarget.querySelector('.feature-icon-box');
+              if (icon) {
+                icon.style.background = 'var(--primary-50)';
+                icon.style.color = 'var(--primary)';
+                icon.style.boxShadow = 'none';
+                icon.style.transform = 'scale(1)';
+              }
             }}
             >
-              <div style={{ fontSize: '32px', marginBottom: '16px' }}>{f.icon}</div>
+              <div className="feature-stripe" style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '3px',
+                background: `linear-gradient(90deg, transparent, ${f.color}, transparent)`,
+                opacity: 0,
+                transition: 'opacity 0.3s ease',
+              }} />
+              <div className="feature-icon-box" style={{
+                width: '64px',
+                height: '64px',
+                margin: '0 auto 16px',
+                background: 'var(--primary-50)',
+                borderRadius: 'var(--radius-lg)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--primary)',
+                fontSize: '32px',
+                transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              }}>{f.icon}</div>
               <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px', color: 'var(--gray-900)' }}>{f.title}</h3>
               <p style={{ fontSize: '14px', color: 'var(--gray-500)', lineHeight: '1.6' }}>{f.desc}</p>
             </div>
@@ -357,7 +472,12 @@ const Home = () => {
       <div style={{
         padding: '80px 24px 100px',
         textAlign: 'center',
-        background: 'linear-gradient(180deg, var(--gray-50) 0%, var(--bg) 40%, var(--primary-50) 100%)',
+        background: `
+          radial-gradient(ellipse 600px 400px at 20% 30%, rgba(22,163,74,0.08) 0%, transparent 100%),
+          radial-gradient(ellipse 500px 350px at 80% 60%, rgba(14,165,233,0.07) 0%, transparent 100%),
+          radial-gradient(ellipse 400px 300px at 50% 80%, rgba(139,92,246,0.05) 0%, transparent 100%),
+          linear-gradient(180deg, var(--gray-50) 0%, var(--bg) 40%, var(--primary-50) 100%)
+        `,
         overflow: 'hidden',
         position: 'relative',
       }}>
@@ -384,7 +504,7 @@ const Home = () => {
             inset: 0,
             borderRadius: '50%',
             border: '2px dashed var(--primary-200)',
-            animation: 'spin 20s linear infinite',
+            animation: 'spin 14s linear infinite',
           }} />
 
           {/* Inner ring */}
@@ -393,7 +513,7 @@ const Home = () => {
             inset: '40px',
             borderRadius: '50%',
             border: '2px solid var(--accent-200)',
-            animation: 'spin 14s linear infinite reverse',
+            animation: 'spin 10s linear infinite reverse',
           }} />
 
           {/* Center avatar */}
@@ -430,7 +550,7 @@ const Home = () => {
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-first 20s linear infinite',
+            animation: 'orbit-first 14s linear infinite',
             transformOrigin: '50% 154px',
             zIndex: 1,
           }}>
@@ -452,7 +572,7 @@ const Home = () => {
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-second 20s linear infinite',
+            animation: 'orbit-second 14s linear infinite',
             transformOrigin: '-154px 50%',
             zIndex: 1,
           }}>
@@ -474,7 +594,7 @@ const Home = () => {
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-third 20s linear infinite',
+            animation: 'orbit-third 14s linear infinite',
             transformOrigin: '-50% -154px',
             zIndex: 1,
           }}>
@@ -496,7 +616,7 @@ const Home = () => {
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-fourth 20s linear infinite',
+            animation: 'orbit-fourth 14s linear infinite',
             transformOrigin: '154px 50%',
             zIndex: 1,
           }}>
@@ -544,8 +664,8 @@ const Home = () => {
           maxWidth: '500px',
           margin: '0 auto 36px',
         }}>
-          Thousands of eco-warriors are already earning rewards.
-          Start your journey today — it&apos;s free!
+          Thousands are already sorting smarter and planting trees.
+          Your turn — sign up, it&apos;s free!
         </p>
 
         {/* Mini user avatars stack */}
@@ -589,7 +709,22 @@ const Home = () => {
         </div>
 
         <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to="/register" className="btn btn-primary btn-lg" style={{ gap: '10px', fontSize: '17px', padding: '16px 36px' }}>
+          <Link to="/register" className="btn btn-primary btn-lg" style={{
+            gap: '10px',
+            fontSize: '17px',
+            padding: '16px 36px',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <span style={{
+              position: 'absolute',
+              top: 0,
+              left: '-100%',
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
+              animation: 'btnShimmer 3s ease-in-out infinite',
+            }} />
             Start Your Eco-Quest
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
@@ -608,6 +743,12 @@ const Home = () => {
           @keyframes orbit-third { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(360deg); } }
           @keyframes orbit-fourth { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
           @keyframes float-particle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+          @keyframes textShimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+          @keyframes badgeGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+            50% { box-shadow: 0 0 16px 4px rgba(22,163,74,0.15); }
+          }
+          @keyframes btnShimmer { 0% { left: -100%; } 50%, 100% { left: 100%; } }
         `}</style>
       </div>
     </>
