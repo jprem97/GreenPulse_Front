@@ -39,31 +39,28 @@ const Home = () => {
         <FloatingShape style={{ width: 200, height: 200, top: '20%', right: '15%', background: 'var(--purple)', animationDelay: '4s' }} />
 
         <div className="hero-badge">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z" />
-            <path d="M12 6v12" />
-          </svg>
-          AI-Powered Waste Management
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+            AI-Powered Waste Management
         </div>
 
         <h1 className="hero-title" style={{ maxWidth: '800px' }}>
-          Turn <span>Waste</span> Into <span>Rewards</span>
+          Turn <span>Waste</span> Into <span>Impact</span>
         </h1>
 
         <p className="hero-subtitle" style={{ maxWidth: '580px' }}>
-          Upload a photo of your sorted waste, get instant AI-powered analysis,
-          earn eco-points, and redeem them for real rewards from partner brands.
+          Snap a photo of your sorted waste, get instant AI-powered analysis,
+          earn eco-points, and start Plant Quests to track real growth.
         </p>
 
         <div className="hero-actions">
           <Link to="/register" className="btn btn-primary btn-lg" style={{ gap: '10px' }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <line x1="19" y1="8" x2="19" y2="14" />
-              <line x1="22" y1="11" x2="16" y2="11" />
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
             </svg>
-            Get Started Free
+            Let's Go
           </Link>
           <Link to="/login" className="btn btn-secondary btn-lg">
             Sign In
@@ -122,12 +119,11 @@ const Home = () => {
               num: '1',
               icon: (
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                  <circle cx="12" cy="13" r="4" />
                 </svg>
               ),
-              title: 'Upload',
+              title: 'Snap & Sort',
               desc: 'Take a photo of your sorted waste and upload it with drag & drop',
               color: 'var(--primary)',
               bg: 'var(--primary-50)',
@@ -143,7 +139,7 @@ const Home = () => {
                 </svg>
               ),
               title: 'Analyze',
-              desc: 'Our AI detects objects, evaluates segregation, and scores you out of 100',
+              desc: 'AI scans, detects objects, evaluates segregation & scores you out of 100',
               color: 'var(--accent)',
               bg: 'var(--accent-50)',
             },
@@ -329,8 +325,8 @@ const Home = () => {
             { icon: '📊', title: 'Score & Feedback', desc: 'Get a detailed score out of 100 with specific suggestions to improve your segregation' },
             { icon: '🏆', title: 'Level System', desc: 'Progress through 6 levels from Seedling to Planet Savior as you earn more eco-points' },
             { icon: '🎟️', title: 'Real Rewards', desc: 'Redeem your eco-points for discount coupons and rewards from partner brands' },
-            { icon: '📸', title: 'Analysis History', desc: 'Track your progress over time with a complete history of all your waste analyses' },
-            { icon: '🔥', title: 'Daily Streaks', desc: 'Build consistency with streak tracking — upload daily to keep your streak alive' },
+            { icon: '📸', title: 'Snap & Sort', desc: 'Snap a photo of your waste and get instant AI-powered segregation analysis' },
+            { icon: '⚡', title: 'Plant Quest', desc: 'Start a plant growth journey — upload stage photos, verify growth, earn GP' },
           ].map((f) => (
             <div key={f.title} style={{
               padding: '28px',
@@ -416,7 +412,7 @@ const Home = () => {
             boxShadow: '0 0 0 6px rgba(34,197,94,0.15), 0 20px 40px -10px rgba(34,197,94,0.3)',
             zIndex: 2,
           }}>
-            <span style={{ fontSize: '44px' }}>♻️</span>
+            <span style={{ fontSize: '44px' }}>⚡</span>
           </div>
 
           {/* Orbiting avatar 1 */}
@@ -438,7 +434,7 @@ const Home = () => {
             transformOrigin: '50% 154px',
             zIndex: 1,
           }}>
-            <span style={{ fontSize: '20px' }}>🌱</span>
+            <span style={{ fontSize: '20px' }}>📸</span>
           </div>
 
           {/* Orbiting avatar 2 */}
@@ -504,7 +500,7 @@ const Home = () => {
             transformOrigin: '154px 50%',
             zIndex: 1,
           }}>
-            <span style={{ fontSize: '20px' }}>🌍</span>
+            <span style={{ fontSize: '20px' }}>⚡</span>
           </div>
 
           {/* Floating particles */}
@@ -594,7 +590,7 @@ const Home = () => {
 
         <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link to="/register" className="btn btn-primary btn-lg" style={{ gap: '10px', fontSize: '17px', padding: '16px 36px' }}>
-            Start Earning Eco-Points
+            Start Your Eco-Quest
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
             </svg>

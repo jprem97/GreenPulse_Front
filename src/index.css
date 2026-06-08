@@ -227,13 +227,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--primary);
   text-decoration: none;
-  letter-spacing: -0.5px;
 }
 
 .navbar-brand .brand-icon {
@@ -973,17 +967,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .auth-header .auth-logo {
-  width: 56px;
-  height: 56px;
-  background: var(--primary-gradient);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin: 0 auto 20px;
-  color: white;
-  font-size: 28px;
-  box-shadow: var(--primary-glow);
+  display: flex;
+  justify-content: center;
 }
 
 .auth-header h1 {

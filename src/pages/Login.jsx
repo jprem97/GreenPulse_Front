@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import GreenPulseLogo from '../components/GreenPulseLogo';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -29,11 +30,7 @@ const Login = () => {
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z" />
-              <path d="M12 6v12" />
-              <path d="M8 10c0-1.5 1.5-2 4-2s4 .5 4 2-1.5 2-4 2-4 .5-4 2 1.5 2 4 2 4-.5 4-2" />
-            </svg>
+            <GreenPulseLogo size={48} showText={false} />
           </div>
           <h1>Welcome back</h1>
           <p>Sign in to continue to GreenPulse</p>

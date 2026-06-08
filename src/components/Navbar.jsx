@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { getLevelForGP } from '../services/levels';
 import RulesModal from './RulesModal';
+import GreenPulseLogo from './GreenPulseLogo';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -19,14 +20,7 @@ const Navbar = () => {
       <RulesModal isOpen={showRules} onClose={() => setShowRules(false)} />
       <nav className="navbar">
       <Link to={user ? '/dashboard' : '/'} className="navbar-brand">
-        <div className="brand-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z" />
-            <path d="M12 6v12" />
-            <path d="M8 10c0-1.5 1.5-2 4-2s4 .5 4 2-1.5 2-4 2-4 .5-4 2 1.5 2 4 2 4-.5 4-2" />
-          </svg>
-        </div>
-        GreenPulse
+        <GreenPulseLogo size={30} showText={true} />
       </Link>
       {user && (
         <div className="navbar-right">

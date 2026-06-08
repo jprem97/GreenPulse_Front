@@ -75,8 +75,8 @@ const Upload = () => {
       <div className="page-content">
         <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="page-header">
-          <h1 className="page-title">Upload Waste Image</h1>
-          <p className="page-subtitle">Take a photo of your sorted waste to earn eco-points</p>
+          <h1 className="page-title">Snap &amp; Sort</h1>
+          <p className="page-subtitle">Take a snap of your sorted waste — AI instantly analyzes &amp; rewards you</p>
         </div>
 
         {!preview ? (

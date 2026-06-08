@@ -43,14 +43,14 @@ const MyPlantations = () => {
         <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <h1 className="page-title">My Plantations</h1>
-            <p className="page-subtitle">Track your plant growth journeys</p>
+            <h1 className="page-title">Plant Quest</h1>
+            <p className="page-subtitle">Track your growing adventures &amp; earn eco-points</p>
           </div>
           <Link to="/plants/create" className="btn btn-primary" style={{ gap: '8px' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
             </svg>
-            New Plantation
+            New Quest
           </Link>
         </div>
 
@@ -72,8 +72,8 @@ const MyPlantations = () => {
         ) : filtered.length === 0 ? (
           <div className="empty-state">
             <div className="empty-state-icon">🌱</div>
-            <p>No plantations yet. Start your first plant journey!</p>
-            <Link to="/plants/create" className="btn btn-primary">Create Plantation</Link>
+            <p>No quests yet. Start your first Plant Quest!</p>
+            <Link to="/plants/create" className="btn btn-primary">Start Quest</Link>
           </div>
         ) : (
           <div className="grid grid-auto">

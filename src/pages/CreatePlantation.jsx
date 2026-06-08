@@ -60,8 +60,8 @@ const CreatePlantation = () => {
       <div className="page-content">
         <BackButton to="/plants" label="Back to My Plantations" />
         <div className="page-header">
-          <h1 className="page-title">Start a Plantation Journey</h1>
-          <p className="page-subtitle">Plant, grow, and earn eco-points over time</p>
+          <h1 className="page-title">Start a Plant Quest</h1>
+          <p className="page-subtitle">Plant, grow, and level up your eco-impact over time</p>
         </div>
 
         {success && (
