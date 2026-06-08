@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
+import BackButton from '../components/BackButton';
 import api from '../services/api';
 
 const classificationConfig = {
@@ -32,6 +33,7 @@ const History = () => {
       <div className="page-layout">
         <Sidebar />
         <div className="page-content">
+          <BackButton to="/dashboard" label="Back to Dashboard" />
           <div className="loading-page">
             <span className="loading-spinner" />
             Loading history...
@@ -45,6 +47,7 @@ const History = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="page-content">
+        <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="page-header">
           <h1 className="page-title">Analysis History</h1>
           <p className="page-subtitle">Your past waste image analyses</p>

@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { couponService } from '../services/couponService';
 import Sidebar from '../components/Sidebar';
 import CouponCard from '../components/CouponCard';
+import BackButton from '../components/BackButton';
 
 const Coupons = () => {
   const [coupons, setCoupons] = useState([]);
@@ -63,6 +64,7 @@ const Coupons = () => {
       <div className="page-layout">
         <Sidebar />
         <div className="page-content">
+          <BackButton to="/dashboard" label="Back to Dashboard" />
           <div className="loading-page">
             <span className="loading-spinner" />
             Loading coupons...
@@ -76,6 +78,7 @@ const Coupons = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="page-content">
+        <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="page-header">
           <h1 className="page-title">Coupons</h1>
           <p className="page-subtitle">Redeem your eco-points for partner rewards</p>

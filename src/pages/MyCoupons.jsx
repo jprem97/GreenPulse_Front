@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { couponService } from '../services/couponService';
 import Sidebar from '../components/Sidebar';
 import CouponCard from '../components/CouponCard';
+import BackButton from '../components/BackButton';
 
 const MyCoupons = () => {
   const [savedCoupons, setSavedCoupons] = useState([]);
@@ -35,6 +36,7 @@ const MyCoupons = () => {
       <div className="page-layout">
         <Sidebar />
         <div className="page-content">
+          <BackButton to="/dashboard" label="Back to Dashboard" />
           <div className="loading-page">
             <span className="loading-spinner" />
             Loading your coupons...
@@ -48,6 +50,7 @@ const MyCoupons = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="page-content">
+        <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="page-header">
           <h1 className="page-title">My Coupons</h1>
           <p className="page-subtitle">Manage your saved and redeemed coupons</p>

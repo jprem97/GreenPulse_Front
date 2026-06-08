@@ -22,6 +22,12 @@ export const ACHIEVEMENTS = [
   { id: "gp_1000",          title: "Eco Master",         description: "Earned 1000 total GP",                 icon: "🥇" },
   { id: "good_segregator",  title: "Good Segregator",    description: "10 GOOD classifications",              icon: "✅" },
   { id: "level_up",         title: "Level Up!",          description: "Reached Green Worker or above",        icon: "⬆️" },
+  { id: "first_plant",      title: "First Sprout",       description: "Created your first plantation",        icon: "🌱" },
+  { id: "plant_3",          title: "Green Thumb",        description: "Completed 3 plantations",              icon: "🌿" },
+  { id: "plant_5",          title: "Master Gardener",    description: "Completed 5 plantations",              icon: "🌳" },
+  { id: "plant_perfect",    title: "Perfect Grower",     description: "Completed a plantation with 90+ avg",  icon: "✨" },
+  { id: "plant_streak_3",   title: "Dedicated Planter",  description: "3-week plantation streak",             icon: "🔥" },
+  { id: "verification_pro", title: "Verification Pro",   description: "Verified 10 plantation codes",         icon: "🔐" },
 ];
 
 export function getLevelForGP(gp) {

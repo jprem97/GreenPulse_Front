@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Sidebar from '../components/Sidebar';
+import BackButton from '../components/BackButton';
 import api from '../services/api';
 
 const AdminCoupons = () => {
@@ -86,6 +87,7 @@ const AdminCoupons = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="page-content">
+        <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="admin-header" style={{ marginBottom: '28px' }}>
           <div className="page-header" style={{ marginBottom: 0 }}>
             <h1 className="page-title">Admin Panel</h1>

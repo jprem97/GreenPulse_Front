@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Sidebar from '../components/Sidebar';
+import BackButton from '../components/BackButton';
 import { getLevelProgress, ACHIEVEMENTS } from '../services/levels';
 
 const Profile = () => {
@@ -24,6 +25,7 @@ const Profile = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="page-content" style={{ maxWidth: '720px' }}>
+        <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="page-header">
           <h1 className="page-title">Profile</h1>
           <p className="page-subtitle">Your account information</p>

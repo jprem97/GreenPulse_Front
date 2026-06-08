@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import BackButton from '../components/BackButton';
 import { plantService } from '../services/plantService';
 import { PLANT_TYPES, DURATIONS } from './CreatePlantation';
 
@@ -39,6 +40,7 @@ const MyPlantations = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="page-content">
+        <BackButton to="/dashboard" label="Back to Dashboard" />
         <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <h1 className="page-title">My Plantations</h1>
@@ -77,10 +79,12 @@ const MyPlantations = () => {
           <div className="grid grid-auto">
             {filtered.map((plant) => {
               const st = STATUS_COLORS[plant.status] || STATUS_COLORS.ACTIVE;
+              const uploadCount = plant.uploadCount || (plant.uploads ? plant.uploads.length : 0);
               const progress = plant.stages.length > 0
-                ? (plant.uploads.length / plant.stages.length) * 100
+                ? (uploadCount / plant.stages.length) * 100
                 : 0;
-              const nextStage = plant.stages[plant.uploads.length] || null;
+              const unlockedStage = plant.unlockedStage || null;
+              const isDueNow = plant.status === 'ACTIVE' && unlockedStage;
 
               return (
                 <Link
@@ -111,21 +115,32 @@ const MyPlantations = () => {
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                         <span style={{ fontSize: '13px', color: 'var(--gray-500)' }}>Progress</span>
-                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--gray-700)' }}>{plant.uploads.length}/{plant.stages.length} stages</span>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--gray-700)' }}>{uploadCount}/{plant.stages.length} stages</span>
                       </div>
                       <div className="progress-bar">
                         <div className="progress-bar-fill" style={{ width: `${progress}%`, background: plant.status === 'COMPLETED' ? 'linear-gradient(90deg, #0ea5e9, #06b6d4)' : 'var(--primary-gradient)' }} />
                       </div>
                     </div>
 
+                    {plant.plantStreak > 0 && (
+                      <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <span style={{ fontSize: '12px', color: 'var(--warning)' }}>🔥</span>
+                        <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--gray-600)' }}>{plant.plantStreak} streak</span>
+                      </div>
+                    )}
+
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
                       <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--primary)' }}>
                         {plant.totalGp} GP earned
                       </div>
-                      {plant.status === 'ACTIVE' && nextStage && (
-                        <div style={{ fontSize: '12px', color: 'var(--gray-400)' }}>
-                          Next: Week {nextStage}
-                        </div>
+                      {isDueNow && (
+                        <span style={{
+                          fontSize: '11px', fontWeight: 700, padding: '3px 10px',
+                          background: 'var(--warning-bg)', color: '#92400e',
+                          border: '1px solid var(--warning-border)', borderRadius: 'var(--radius-full)',
+                        }}>
+                          Week {unlockedStage} ready
+                        </span>
                       )}
                       {plant.status === 'COMPLETED' && (
                         <div style={{ fontSize: '12px', color: '#0ea5e9', fontWeight: 600 }}>

@@ -12,6 +12,7 @@ const PlantJourney = () => {
   const [plant, setPlant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
+  const [compareWeek, setCompareWeek] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -45,9 +46,20 @@ const PlantJourney = () => {
 
   const plantType = PLANT_TYPES.find((t) => t.value === plant.plantType);
   const duration = DURATIONS.find((d) => d.value === plant.durationWeeks);
-  const progress = plant.stages.length > 0 ? (plant.uploads.length / plant.stages.length) * 100 : 0;
+  const uploadCount = plant.uploads ? plant.uploads.length : 0;
+  const progress = plant.stages.length > 0 ? (uploadCount / plant.stages.length) * 100 : 0;
   const isComplete = plant.status === 'COMPLETED';
   const nextStage = plant.nextStage;
+  const unlockedStage = plant.unlockedStage;
+  const currentWeek = plant.currentWeek || 1;
+
+  const avgScore = uploadCount > 0
+    ? Math.round(plant.uploads.reduce((sum, u) => sum + (u.aiResponse?.score || 0), 0) / uploadCount)
+    : 0;
+
+  const compareUploads = compareWeek !== null
+    ? plant.uploads.filter((u) => u.week === compareWeek || u.week === plant.stages[plant.stages.indexOf(compareWeek) - 1])
+    : [];
 
   return (
     <div className="page-layout">
@@ -86,7 +98,11 @@ const PlantJourney = () => {
                 </span>
               </div>
               <div style={{ fontSize: '14px', color: 'var(--gray-500)' }}>
-                {plantType?.label} · {duration?.label} · {plant.uploads.length}/{plant.stages.length} stages
+                {plantType?.label} · {duration?.label} · {uploadCount}/{plant.stages.length} stages
+              </div>
+              <div style={{ fontSize: '13px', color: 'var(--gray-400)', marginTop: '4px' }}>
+                Current week: {currentWeek} of {plant.durationWeeks}
+                {unlockedStage && !isComplete && ` · Week ${unlockedStage} ready for upload`}
               </div>
               <div style={{ marginTop: '12px' }}>
                 <div className="progress-bar" style={{ height: '12px' }}>
@@ -98,11 +114,27 @@ const PlantJourney = () => {
                 </div>
               </div>
             </div>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              {plant.plantStreak > 0 && (
+                <div style={{ textAlign: 'center', minWidth: '60px' }}>
+                  <div style={{ fontSize: '24px' }}>🔥</div>
+                  <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--warning)' }}>{plant.plantStreak}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--gray-400)' }}>Streak</div>
+                </div>
+              )}
+              {avgScore > 0 && (
+                <div style={{ textAlign: 'center', minWidth: '60px' }}>
+                  <div style={{ fontSize: '24px' }}>⭐</div>
+                  <div style={{ fontSize: '16px', fontWeight: 800, color: 'var(--primary)' }}>{avgScore}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--gray-400)' }}>Avg Score</div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Verification Code (first upload pending) */}
-        {plant.uploads.length === 0 && plant.status === 'ACTIVE' && (
+        {uploadCount === 0 && plant.status === 'ACTIVE' && (
           <div style={{
             background: 'var(--warning-bg)', border: '2px dashed var(--warning-border)',
             borderRadius: 'var(--radius-xl)', padding: '28px', marginBottom: '28px', textAlign: 'center',
@@ -116,7 +148,7 @@ const PlantJourney = () => {
               {plant.verificationCode}
             </div>
             <p style={{ fontSize: '14px', color: '#92400e', maxWidth: '400px', margin: '0 auto', lineHeight: '1.6' }}>
-              Write this code on paper and place it visible near your plant. The AI will verify it in your first upload.
+              Write this code on paper with a pen and place it visible near your plant. The AI will verify it's handwritten in your first upload.
             </p>
           </div>
         )}
@@ -126,41 +158,61 @@ const PlantJourney = () => {
           <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '16px', color: 'var(--gray-700)' }}>Journey Stages</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {plant.stages.map((week, i) => {
-              const upload = plant.uploads.find((u) => u.week === week);
+              const upload = plant.uploads ? plant.uploads.find((u) => u.week === week) : null;
               const isUploaded = !!upload;
-              const isNext = nextStage === week && plant.status === 'ACTIVE';
+              const isUnlocked = !isUploaded && plant.status === 'ACTIVE' && unlockedStage === week;
+              const isLocked = !isUploaded && !isUnlocked && plant.status === 'ACTIVE';
+              const weeksUntilAvailable = isLocked ? Math.max(0, week - currentWeek) : 0;
 
               return (
                 <div key={week} style={{
                   display: 'flex', gap: '16px', alignItems: 'stretch',
-                  padding: '20px', background: isUploaded ? 'var(--primary-50)' : isNext ? 'var(--warning-bg)' : 'var(--surface)',
-                  border: `2px solid ${isUploaded ? 'var(--primary-200)' : isNext ? 'var(--warning-border)' : 'var(--border)'}`,
+                  padding: '20px', background: isUploaded ? 'var(--primary-50)' : isUnlocked ? 'var(--warning-bg)' : 'var(--surface)',
+                  border: `2px solid ${isUploaded ? 'var(--primary-200)' : isUnlocked ? 'var(--warning-border)' : isLocked ? 'var(--gray-100)' : 'var(--border)'}`,
                   borderRadius: 'var(--radius-lg)', transition: 'all 200ms ease',
+                  opacity: isLocked ? 0.6 : 1,
                 }}>
                   {/* Stage number */}
                   <div style={{
                     width: '48px', height: '48px', borderRadius: 'var(--radius-md)',
-                    background: isUploaded ? 'var(--primary)' : isNext ? 'var(--warning)' : 'var(--gray-200)',
+                    background: isUploaded ? 'var(--primary)' : isUnlocked ? 'var(--warning)' : 'var(--gray-200)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     color: 'white', fontWeight: 800, fontSize: '16px', flexShrink: 0,
                   }}>
                     {isUploaded ? (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>
+                    ) : isLocked ? (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
                     ) : i + 1}
                   </div>
 
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                      <div style={{ fontWeight: 700, fontSize: '15px', color: 'var(--gray-800)' }}>Week {week}</div>
+                      <div style={{ fontWeight: 700, fontSize: '15px', color: isLocked ? 'var(--gray-400)' : 'var(--gray-800)' }}>Week {week}</div>
                       {isUploaded && (
                         <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--primary)' }}>+{upload.gpAwarded} GP</div>
                       )}
-                      {isNext && (
+                      {isUnlocked && (
                         <Link to={`/plants/${plant.id}/upload?week=${week}`} className="btn btn-primary btn-sm">
                           Upload
                         </Link>
                       )}
+                      {isLocked && weeksUntilAvailable > 0 && (
+                        <span style={{
+                          fontSize: '11px', fontWeight: 600, padding: '3px 10px',
+                          background: 'var(--gray-100)', color: 'var(--gray-400)',
+                          borderRadius: 'var(--radius-full)', whiteSpace: 'nowrap',
+                        }}>
+                          ~{weeksUntilAvailable}w remaining
+                        </span>
+                      )}
                     </div>
+
+                    {isUploaded && upload.uploadedAt && (
+                      <div style={{ fontSize: '11px', color: 'var(--gray-400)', marginBottom: '4px' }}>
+                        Uploaded {new Date(upload.uploadedAt).toLocaleDateString()}
+                      </div>
+                    )}
 
                     {isUploaded && upload.imageUrl && (
                       <div style={{ marginTop: '12px' }}>
@@ -191,6 +243,13 @@ const PlantJourney = () => {
                     {isUploaded && (
                       <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--gray-400)' }}>
                         Score: {upload.aiResponse?.score || 0}/100 · Health: {upload.aiResponse?.plantHealth || 'N/A'} · Growth: {upload.aiResponse?.growthQuality || 'N/A'}
+                        {upload.aiResponse?.growthPercentage !== undefined && ` · ${upload.aiResponse.growthPercentage}% growth`}
+                      </div>
+                    )}
+
+                    {isUploaded && upload.aiResponse?.verificationCodeVerified && (
+                      <div style={{ marginTop: '4px' }}>
+                        <span className="badge badge-good" style={{ fontSize: '11px' }}>✓ Verification Code Verified</span>
                       </div>
                     )}
                   </div>
@@ -201,7 +260,7 @@ const PlantJourney = () => {
         </div>
 
         {/* Delete button (only if no uploads) */}
-        {plant.uploads.length === 0 && (
+        {uploadCount === 0 && (
           <button onClick={handleDelete} className="btn btn-ghost" style={{ color: 'var(--danger)' }} disabled={deleting}>
             {deleting ? 'Deleting...' : 'Delete Plantation'}
           </button>

@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Sidebar from '../components/Sidebar';
+import BackButton from '../components/BackButton';
 import { plantService } from '../services/plantService';
 
 export const PLANT_TYPES = [
@@ -57,6 +58,7 @@ const CreatePlantation = () => {
     <div className="page-layout">
       <Sidebar />
       <div className="page-content">
+        <BackButton to="/plants" label="Back to My Plantations" />
         <div className="page-header">
           <h1 className="page-title">Start a Plantation Journey</h1>
           <p className="page-subtitle">Plant, grow, and earn eco-points over time</p>

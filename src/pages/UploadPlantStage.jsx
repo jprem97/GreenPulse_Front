@@ -4,6 +4,14 @@ import { AuthContext } from '../context/AuthContext';
 import Sidebar from '../components/Sidebar';
 import { plantService } from '../services/plantService';
 
+const UPLOAD_STEPS = [
+  { key: 'select', label: 'Select Image' },
+  { key: 'uploading', label: 'Uploading' },
+  { key: 'analyzing', label: 'AI Analyzing' },
+  { key: 'saving', label: 'Saving Results' },
+  { key: 'done', label: 'Complete' },
+];
+
 const UploadPlantStage = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -15,6 +23,7 @@ const UploadPlantStage = () => {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadStep, setUploadStep] = useState('select');
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [dragOver, setDragOver] = useState(false);
@@ -62,17 +71,33 @@ const UploadPlantStage = () => {
     setUploading(true);
     setError('');
     setResult(null);
+    setUploadStep('uploading');
+
+    setTimeout(() => setUploadStep('analyzing'), 1000);
+
     try {
       const response = await plantService.uploadStage(id, file);
+      setUploadStep('saving');
+
       if (response.success) {
-        setResult(response);
-        syncUser({ gp: response.totalGp });
+        setTimeout(() => {
+          setResult(response);
+          setUploadStep('done');
+          syncUser({ gp: response.totalGp });
+        }, 500);
       } else {
+        setUploadStep('select');
         setError(response.message || 'Upload failed');
       }
     } catch (err) {
+      setUploadStep('select');
       const msg = err.response?.data?.message || err.response?.data?.error || 'Upload failed';
-      setError(msg);
+      const fraudType = err.response?.data?.fraudType;
+      if (fraudType && fraudType !== 'NONE') {
+        setError(`${msg} (Fraud type: ${fraudType.replace(/_/g, ' ').toLowerCase()})`);
+      } else {
+        setError(msg);
+      }
     } finally {
       setUploading(false);
     }
@@ -83,12 +108,18 @@ const UploadPlantStage = () => {
     setPreview(null);
     setResult(null);
     setError('');
+    setUploadStep('select');
   };
 
   if (loading) return <div className="page-layout"><Sidebar /><div className="page-content"><div className="loading-page"><div className="loading-spinner" /> Loading...</div></div></div>;
   if (!plant) return <div className="page-layout"><Sidebar /><div className="page-content"><div className="empty-state"><p>Plantation not found</p><Link to="/plants" className="btn btn-primary">Back</Link></div></div></div>;
 
   const isFirst = plant.uploads.length === 0;
+  const currentWeek = plant.currentWeek || 1;
+  const unlockedStage = plant.unlockedStage;
+  const isWeekAvailable = isFirst || unlockedStage === week;
+  const isAlreadyUploaded = plant.uploads.some((u) => u.week === week);
+  const weeksUntilAvailable = !isWeekAvailable && !isAlreadyUploaded ? Math.max(0, week - currentWeek) : 0;
 
   return (
     <div className="page-layout">
@@ -115,31 +146,107 @@ const UploadPlantStage = () => {
               {plant.verificationCode}
             </div>
             <p style={{ fontSize: '13px', color: '#92400e', maxWidth: '400px', margin: '0 auto' }}>
-              Write this code on paper and include it in your photo. The AI will verify it.
+              Write this code on paper with a pen and place it visible near your plant. The AI will verify it's handwritten.
             </p>
           </div>
         )}
 
-        {!preview ? (
-          <div
-            className={`upload-zone ${dragOver ? 'dragover' : ''}`}
-            onClick={() => fileInputRef.current?.click()}
-            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={handleDrop}
-          >
-            <div className="upload-zone-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="17 8 12 3 7 8" />
-                <line x1="12" y1="3" x2="12" y2="15" />
-              </svg>
-            </div>
-            <p><strong>Click to upload</strong> or drag and drop</p>
-            <p className="upload-hint">PNG, JPG, WEBP up to 10MB</p>
-            <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={handleFileChange} style={{ display: 'none' }} />
+        {!isWeekAvailable && !isAlreadyUploaded && (
+          <div style={{
+            background: 'var(--gray-50)', border: '2px solid var(--gray-200)',
+            borderRadius: 'var(--radius-xl)', padding: '32px', marginBottom: '24px', textAlign: 'center',
+          }}>
+            <div style={{ fontSize: '32px', marginBottom: '12px' }}>🔒</div>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--gray-600)', marginBottom: '8px' }}>Week {week} Not Yet Available</h3>
+            <p style={{ fontSize: '14px', color: 'var(--gray-400)', maxWidth: '400px', margin: '0 auto', lineHeight: '1.6' }}>
+              This stage unlocks after {week} weeks from plantation creation.
+              {weeksUntilAvailable > 0 && ` Approximately ${weeksUntilAvailable} week${weeksUntilAvailable !== 1 ? 's' : ''} remaining.`}
+            </p>
+            <Link to={`/plants/${id}`} className="btn btn-secondary" style={{ marginTop: '16px' }}>
+              Back to Journey
+            </Link>
           </div>
-        ) : (
+        )}
+
+        {isAlreadyUploaded && (
+          <div style={{
+            background: 'var(--primary-50)', border: '2px solid var(--primary-200)',
+            borderRadius: 'var(--radius-xl)', padding: '24px', marginBottom: '24px', textAlign: 'center',
+          }}>
+            <div style={{ fontSize: '28px', marginBottom: '8px' }}>✅</div>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, color: 'var(--primary-700)', marginBottom: '8px' }}>Week {week} Already Uploaded</h3>
+            <Link to={`/plants/${id}`} className="btn btn-primary" style={{ marginTop: '8px' }}>
+              View Journey
+            </Link>
+          </div>
+        )}
+
+        {/* Upload Progress Steps */}
+        {uploading && (
+          <div style={{
+            background: 'var(--surface)', border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-xl)', padding: '24px', marginBottom: '24px',
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
+              {UPLOAD_STEPS.map((step, i) => {
+                const currentIndex = UPLOAD_STEPS.findIndex((s) => s.key === uploadStep);
+                const isCompleted = i < currentIndex;
+                const isCurrent = i === currentIndex;
+                return (
+                  <div key={step.key} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', flex: 1 }}>
+                    <div style={{
+                      width: '28px', height: '28px', borderRadius: '50%',
+                      background: isCompleted ? 'var(--primary)' : isCurrent ? 'var(--primary-50)' : 'var(--gray-100)',
+                      border: isCurrent ? '2px solid var(--primary)' : '2px solid transparent',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '12px', fontWeight: 700,
+                      color: isCompleted ? 'white' : isCurrent ? 'var(--primary)' : 'var(--gray-400)',
+                    }}>
+                      {isCompleted ? '✓' : i + 1}
+                    </div>
+                    <span style={{
+                      fontSize: '11px', fontWeight: isCurrent ? 700 : 500,
+                      color: isCurrent ? 'var(--primary)' : 'var(--gray-400)',
+                    }}>
+                      {step.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ height: '4px', background: 'var(--gray-100)', borderRadius: 'var(--radius-full)', overflow: 'hidden' }}>
+              <div style={{
+                height: '100%', borderRadius: 'var(--radius-full)',
+                background: 'var(--primary-gradient)',
+                width: `${((UPLOAD_STEPS.findIndex((s) => s.key === uploadStep) + 1) / UPLOAD_STEPS.length) * 100}%`,
+                transition: 'width 0.5s ease',
+              }} />
+            </div>
+          </div>
+        )}
+
+        {(isWeekAvailable || isFirst) && !isAlreadyUploaded && !preview && (
+        <div
+          className={`upload-zone ${dragOver ? 'dragover' : ''}`}
+          onClick={() => fileInputRef.current?.click()}
+          onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={handleDrop}
+        >
+          <div className="upload-zone-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
+          <p><strong>Click to upload</strong> or drag and drop</p>
+          <p className="upload-hint">PNG, JPG, WEBP up to 10MB</p>
+          <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={handleFileChange} style={{ display: 'none' }} />
+        </div>
+        )}
+
+        {(isWeekAvailable || isFirst) && !isAlreadyUploaded && preview && (
           <>
             <div className="upload-preview">
               <img src={preview} alt="Preview" />
@@ -155,11 +262,13 @@ const UploadPlantStage = () => {
               )}
             </div>
 
-            {uploading && (
+            {uploading && uploadStep === 'analyzing' && (
               <div style={{ textAlign: 'center', padding: '32px', background: 'var(--surface)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)', marginBottom: '20px' }}>
                 <div className="loading-spinner" style={{ width: '32px', height: '32px', borderWidth: '3px', marginBottom: '16px' }} />
                 <div style={{ fontSize: '16px', fontWeight: 600, color: 'var(--gray-700)', marginBottom: '6px' }}>AI is analyzing your plant...</div>
-                <div style={{ fontSize: '13px', color: 'var(--gray-400)' }}>Checking growth, health, and authenticity</div>
+                <div style={{ fontSize: '13px', color: 'var(--gray-400)' }}>
+                  {isFirst ? 'Checking verification code and plant authenticity' : 'Comparing growth and checking authenticity'}
+                </div>
               </div>
             )}
 
@@ -191,6 +300,7 @@ const UploadPlantStage = () => {
               </svg>
               <div>
                 <strong>+{result.gpAwarded} GP earned!</strong>
+                {result.streakBonus > 0 && ` (+${result.streakBonus} streak bonus)`}
                 {result.completionBonus > 0 && ` +${result.completionBonus} GP completion bonus!`}
               </div>
             </div>
@@ -216,6 +326,12 @@ const UploadPlantStage = () => {
                     <div className="result-stat-value" style={{ color: 'var(--purple)' }}>{result.aiResponse?.plantHealth || 'N/A'}</div>
                     <div className="result-stat-label">Plant Health</div>
                   </div>
+                  {result.aiResponse?.growthPercentage !== undefined && (
+                    <div className="result-stat">
+                      <div className="result-stat-value" style={{ color: '#0ea5e9' }}>{result.aiResponse.growthPercentage}%</div>
+                      <div className="result-stat-label">Growth</div>
+                    </div>
+                  )}
                 </div>
 
                 {result.aiResponse?.feedback?.length > 0 && (
@@ -242,6 +358,9 @@ const UploadPlantStage = () => {
                   <span className={`badge ${!result.aiResponse?.fraudDetected ? 'badge-good' : 'badge-bad'}`}>
                     {result.aiResponse?.fraudDetected ? 'Fraud Detected' : 'Authentic'}
                   </span>
+                  {result.aiResponse?.verificationCodeVerified && (
+                    <span className="badge badge-good">Code Verified</span>
+                  )}
                 </div>
               </div>
             </div>

@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Sidebar from '../components/Sidebar';
 import { couponService } from '../services/couponService';
+import { plantService } from '../services/plantService';
 import { LEVELS, getLevelProgress } from '../services/levels';
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [recentCoupons, setRecentCoupons] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activePlants, setActivePlants] = useState(0);
+  const [plantLoading, setPlantLoading] = useState(true);
 
   const gp = user?.gp || 0;
   const lvl = getLevelProgress(gp);
@@ -25,6 +28,21 @@ const Dashboard = () => {
       }
     };
     load();
+  }, []);
+
+  useEffect(() => {
+    const loadPlants = async () => {
+      try {
+        const data = await plantService.getMyPlants();
+        const plants = data.plants || [];
+        setActivePlants(plants.filter((p) => p.status === 'ACTIVE').length);
+      } catch {
+        // ignore
+      } finally {
+        setPlantLoading(false);
+      }
+    };
+    loadPlants();
   }, []);
 
   return (
@@ -150,10 +168,10 @@ const Dashboard = () => {
           </div>
           <div className="stat-card purple">
             <div className="stat-icon purple">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22c-4.97 0-9-2.24-9-5v-6c0-2.76 4.03-5 9-5s9 2.24 9 5v6c0 2.76-4.03 5-9 5z" /><path d="M12 6V2" /><path d="M4.93 10.93l-2.83-2.83" /><path d="M19.07 10.93l2.83-2.83" /></svg>
             </div>
-            <div className="stat-label">Best Score</div>
-            <div className="stat-value purple">{user?.bestScore || 0}</div>
+            <div className="stat-label">Active Plants</div>
+            <div className="stat-value purple">{plantLoading ? '...' : activePlants}</div>
           </div>
           <div className="stat-card warning">
             <div className="stat-icon warning">
@@ -223,6 +241,15 @@ const Dashboard = () => {
               <div className="quick-action-text">
                 <h4>Upload Waste</h4>
                 <p>Earn eco-points</p>
+              </div>
+            </Link>
+            <Link to="/plants" className="quick-action">
+              <div className="quick-action-icon" style={{ background: 'rgba(34,197,94,0.1)', color: '#16a34a' }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 20h10" /><path d="M10 20c0-4.4 3.6-8 8-8h4s-1 2-4 2c-3.3 0-6-2.7-6-6 0-3 2-5 4-5 2 0 3 1 3 1" /><path d="M14 8c0-2.2 1.8-4 4-4 0 2.2-1.8 4-4 4z" /></svg>
+              </div>
+              <div className="quick-action-text">
+                <h4>My Plantations</h4>
+                {activePlants > 0 ? <p>{activePlants} active</p> : <p>Start a journey</p>}
               </div>
             </Link>
             <Link to="/coupons" className="quick-action">
