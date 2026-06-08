@@ -36,6 +36,35 @@ const Dashboard = () => {
           <p className="page-subtitle">Here&apos;s your eco-impact overview</p>
         </div>
 
+        {user?.isFlagged && (
+          <div className="alert alert-error" style={{ marginBottom: '24px' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            <div>
+              <strong>Account Flagged</strong> — Your account has been flagged for repeated duplicate uploads. You are now receiving only <strong>40% eco-points</strong> per upload. Upload only original photos to avoid this penalty.
+            </div>
+          </div>
+        )}
+
+        {!user?.isFlagged && user?.duplicateWarnings > 0 && (
+          <div className="alert alert-warning" style={{ marginBottom: '24px' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            <div>
+              <strong>Warning ({user.duplicateWarnings}/5)</strong> — You have uploaded {user.duplicateWarnings} duplicate image{user.duplicateWarnings !== 1 ? 's' : ''}.
+              {user.duplicateWarnings < 3 && ` ${3 - user.duplicateWarnings} more duplicate${3 - user.duplicateWarnings !== 1 ? 's' : ''} before your first warning.`}
+              {user.duplicateWarnings === 3 && ' This is your first warning. One more duplicate and you\'ll receive a final warning.'}
+              {user.duplicateWarnings === 4 && ' This is your LAST WARNING. One more duplicate will flag your account permanently!'}
+            </div>
+          </div>
+        )}
+
         {/* LEVEL CARD */}
         <div style={{
           background: lvl.current.bg,

@@ -14,6 +14,8 @@ const buildUserData = (data) => ({
   maxSingleGP: data.user.maxSingleGP || 0,
   goodCount: data.user.goodCount || 0,
   streak: data.user.streak || 0,
+  duplicateWarnings: data.user.duplicateWarnings || 0,
+  isFlagged: data.user.isFlagged || false,
   levelProgress: data.user.levelProgress || null,
   achievements: data.user.achievements || [],
 });
