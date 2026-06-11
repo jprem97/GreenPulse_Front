@@ -236,7 +236,7 @@ const Home = () => {
       </div>
 
       {/* DIVIDER */}
-      <div style={{
+      <div className="home-divider-hide-mobile" style={{
         maxWidth: '200px',
         height: '2px',
         margin: '0 auto',
@@ -308,7 +308,7 @@ const Home = () => {
       </div>
 
       {/* DIVIDER */}
-      <div style={{
+      <div className="home-divider-hide-mobile" style={{
         maxWidth: '200px',
         height: '2px',
         margin: '0 auto',
@@ -316,7 +316,7 @@ const Home = () => {
       }} />
 
       {/* FEATURES GRID */}
-      <div className="features-section" style={{ background: 'var(--gray-50)', borderRadius: '0', marginTop: '20px' }}>
+      <div className="features-section home-features-grid" style={{ background: 'var(--gray-50)', borderRadius: '0', marginTop: '20px' }}>
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <div style={{
             display: 'inline-flex',

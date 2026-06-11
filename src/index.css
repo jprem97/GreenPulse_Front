@@ -1999,7 +1999,6 @@ h1, h2, h3, h4, h5, h6 {
   .hero-stats { gap: 16px; margin-top: 40px; padding-top: 28px; }
 
   .home-step-card { padding: 24px 18px; }
-  .home-level-card { min-width: 95px; padding: 14px 10px; }
   .home-orbit-container { width: 160px; height: 160px; }
   .home-orbit-center { width: 56px; height: 56px; }
   .home-orbit-center span { font-size: 24px !important; }
@@ -2048,10 +2047,11 @@ h1, h2, h3, h4, h5, h6 {
   .home-step-connector { transform: rotate(90deg); padding: 4px 0; }
 
   /* Home page - Level showcase */
-  .home-level-section { padding: 40px 16px; }
-  .home-level-cards { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; gap: 10px; padding: 8px 4px 16px; -webkit-overflow-scrolling: touch; }
-  .home-level-card { min-width: 110px; padding: 16px 12px; }
-  .home-level-card > div:first-child { font-size: 26px !important; }
+  .home-level-section { display: none; }
+  .home-divider-hide-mobile { display: none; }
+
+  /* Home page - Features grid */
+  .home-features-grid { display: none; }
 
   /* Home page - CTA */
   .home-cta-section { padding: 40px 16px 60px; }
