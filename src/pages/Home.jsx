@@ -13,12 +13,7 @@ const FloatingShape = ({ style }) => (
 );
 
 const StepConnector = () => (
-  <div style={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '0 4px',
-  }}>
+  <div className="home-step-connector">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gray-300)" strokeWidth="2" strokeLinecap="round">
       <path d="M9 18l6-6-6-6" />
     </svg>
@@ -131,13 +126,7 @@ const Home = () => {
           <p className="features-section-subtitle">Segregate, earn, and plant — three steps to a greener planet</p>
         </div>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          gap: '8px',
-          flexWrap: 'wrap',
-        }}>
+        <div className="home-steps-container">
           {[
             {
               num: '1',
@@ -181,19 +170,8 @@ const Home = () => {
               bg: 'var(--purple-bg)',
             },
           ].map((step, i) => (
-            <div key={step.num} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{
-                width: '260px',
-                padding: '32px 24px',
-                background: 'var(--surface)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-xl)',
-                textAlign: 'center',
-                transition: 'all 0.3s ease',
-                cursor: 'default',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
+            <div key={step.num} className="home-step-wrapper">
+              <div className="home-step-card"
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-8px)';
                 e.currentTarget.style.boxShadow = `0 20px 25px -5px rgba(0,0,0,0.1), 0 0 30px ${step.color}15`;
@@ -266,11 +244,7 @@ const Home = () => {
       }} />
 
       {/* LEVEL SYSTEM SHOWCASE */}
-      <div style={{
-        padding: '80px 24px',
-        maxWidth: '1000px',
-        margin: '0 auto',
-      }}>
+      <div className="home-level-section">
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <div style={{
             display: 'inline-flex',
@@ -293,15 +267,7 @@ const Home = () => {
           <p className="features-section-subtitle">Every sorted bag and every planted tree pushes you to the next rank</p>
         </div>
 
-        <div style={{
-          display: 'flex',
-          gap: '12px',
-          overflowX: 'auto',
-          padding: '8px 0 16px',
-          justifyContent: 'center',
-          flexWrap: 'wrap',
-          position: 'relative',
-        }}>
+        <div className="home-level-cards">
           <div style={{
             position: 'absolute',
             top: '50%',
@@ -320,19 +286,8 @@ const Home = () => {
             { icon: '⚔️', name: 'Eco Warrior', gp: '350 GP', color: '#16a34a' },
             { icon: '🛡️', name: 'Earth Guardian', gp: '700 GP', color: '#15803d' },
             { icon: '🌍', name: 'Planet Savior', gp: '1200 GP', color: '#166534' },
-          ].map((lvl, i) => (
-            <div key={lvl.name} style={{
-              textAlign: 'center',
-              padding: '20px 16px',
-              background: 'var(--surface)',
-              border: '2px solid var(--border)',
-              borderRadius: 'var(--radius-lg)',
-              minWidth: '130px',
-              transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-              cursor: 'default',
-              position: 'relative',
-              zIndex: 1,
-            }}
+          ].map((lvl) => (
+            <div key={lvl.name} className="home-level-card"
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-4px) scale(1.03)';
               e.currentTarget.style.boxShadow = `0 8px 20px ${lvl.color}30, 0 0 20px ${lvl.color}15`;
@@ -469,25 +424,9 @@ const Home = () => {
       </div>
 
       {/* CTA — ORBITING AVATARS */}
-      <div style={{
-        padding: '80px 24px 100px',
-        textAlign: 'center',
-        background: `
-          radial-gradient(ellipse 600px 400px at 20% 30%, rgba(22,163,74,0.08) 0%, transparent 100%),
-          radial-gradient(ellipse 500px 350px at 80% 60%, rgba(14,165,233,0.07) 0%, transparent 100%),
-          radial-gradient(ellipse 400px 300px at 50% 80%, rgba(139,92,246,0.05) 0%, transparent 100%),
-          linear-gradient(180deg, var(--gray-50) 0%, var(--bg) 40%, var(--primary-50) 100%)
-        `,
-        overflow: 'hidden',
-        position: 'relative',
-      }}>
+      <div className="home-cta-section">
         {/* Orbiting ring */}
-        <div style={{
-          position: 'relative',
-          width: '280px',
-          height: '280px',
-          margin: '0 auto 40px',
-        }}>
+        <div className="home-orbit-container">
           {/* Pulsing glow behind center */}
           <div style={{
             position: 'absolute',
@@ -517,109 +456,27 @@ const Home = () => {
           }} />
 
           {/* Center avatar */}
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '100px',
-            height: '100px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 0 0 6px rgba(34,197,94,0.15), 0 20px 40px -10px rgba(34,197,94,0.3)',
-            zIndex: 2,
-          }}>
+          <div className="home-orbit-center">
             <span style={{ fontSize: '44px' }}>⚡</span>
           </div>
 
           {/* Orbiting avatar 1 */}
-          <div style={{
-            position: 'absolute',
-            top: '-14px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #bbf7d0, #86efac)',
-            border: '3px solid white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-first 14s linear infinite',
-            transformOrigin: '50% 154px',
-            zIndex: 1,
-          }}>
+          <div className="home-orbit-avatar home-orbit-avatar-1">
             <span style={{ fontSize: '20px' }}>📸</span>
           </div>
 
           {/* Orbiting avatar 2 */}
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            right: '-14px',
-            transform: 'translateY(-50%)',
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #bfdbfe, #93c5fd)',
-            border: '3px solid white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-second 14s linear infinite',
-            transformOrigin: '-154px 50%',
-            zIndex: 1,
-          }}>
+          <div className="home-orbit-avatar home-orbit-avatar-2">
             <span style={{ fontSize: '20px' }}>📊</span>
           </div>
 
           {/* Orbiting avatar 3 */}
-          <div style={{
-            position: 'absolute',
-            bottom: '-14px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #fde68a, #fbbf24)',
-            border: '3px solid white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-third 14s linear infinite',
-            transformOrigin: '-50% -154px',
-            zIndex: 1,
-          }}>
+          <div className="home-orbit-avatar home-orbit-avatar-3">
             <span style={{ fontSize: '20px' }}>🏆</span>
           </div>
 
           {/* Orbiting avatar 4 */}
-          <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '-14px',
-            transform: 'translateY(-50%)',
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #e9d5ff, #c084fc)',
-            border: '3px solid white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            animation: 'orbit-fourth 14s linear infinite',
-            transformOrigin: '154px 50%',
-            zIndex: 1,
-          }}>
+          <div className="home-orbit-avatar home-orbit-avatar-4">
             <span style={{ fontSize: '20px' }}>⚡</span>
           </div>
 
@@ -646,24 +503,10 @@ const Home = () => {
           ))}
         </div>
 
-        <h2 style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '36px',
-          fontWeight: 900,
-          color: 'var(--gray-900)',
-          marginBottom: '12px',
-          letterSpacing: '-1px',
-        }}>
+        <h2 className="home-cta-title">
           Join the Eco-Revolution
         </h2>
-        <p style={{
-          fontSize: '17px',
-          color: 'var(--gray-500)',
-          marginBottom: '36px',
-          lineHeight: '1.7',
-          maxWidth: '500px',
-          margin: '0 auto 36px',
-        }}>
+        <p className="home-cta-subtitle">
           Thousands are already sorting smarter and planting trees.
           Your turn — sign up, it&apos;s free!
         </p>
