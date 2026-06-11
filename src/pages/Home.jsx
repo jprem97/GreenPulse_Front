@@ -44,26 +44,26 @@ const Home = () => {
         </div>
 
         <h1 className="hero-title" style={{ maxWidth: '800px' }}>
-          From <span style={{
+          Upload <span style={{
             background: 'linear-gradient(90deg, var(--primary) 0%, var(--accent) 25%, var(--primary) 50%, var(--accent) 75%, var(--primary) 100%)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
             animation: 'textShimmer 4s linear infinite',
-          }}>Segregation</span> to <span style={{
+          }}>Segregated Waste</span>, Earn <span style={{
             background: 'linear-gradient(90deg, var(--primary) 0%, var(--accent) 25%, var(--primary) 50%, var(--accent) 75%, var(--primary) 100%)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
             animation: 'textShimmer 4s linear infinite 0.5s',
-          }}>Reforestation</span>
+          }}>Green Points</span>
         </h1>
 
         <p className="hero-subtitle" style={{ maxWidth: '580px' }}>
-          Sort your waste with AI guidance, earn eco-points, and use them to
-          plant real trees you can watch grow — all from one app.
+          Snap your segregated waste, get instant AI analysis, earn eco-points,
+          plant real trees for bonus rewards, and redeem points for exciting coupons.
         </p>
 
         <div className="hero-actions">
@@ -71,7 +71,7 @@ const Home = () => {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
             </svg>
-            Let's Go
+            Get Started Free
           </Link>
           <Link to="/login" className="btn btn-secondary btn-lg">
             Sign In
@@ -89,7 +89,7 @@ const Home = () => {
           </div>
           <div className="hero-stat">
             <div className="hero-stat-value">Real</div>
-            <div className="hero-stat-label">Trees Planted</div>
+            <div className="hero-stat-label">Rewards & Trees</div>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@ const Home = () => {
             Simple Process
           </div>
           <h2 className="features-section-title">How It Works</h2>
-          <p className="features-section-subtitle">Segregate, earn, and plant — three steps to a greener planet</p>
+          <p className="features-section-subtitle">Upload, earn, plant — three steps to a greener planet</p>
         </div>
 
         <div className="home-steps-container">
@@ -136,8 +136,8 @@ const Home = () => {
                   <circle cx="12" cy="13" r="4" />
                 </svg>
               ),
-              title: 'Snap & Sort',
-              desc: 'Photograph your segregated waste — AI instantly evaluates your sorting and scores it',
+              title: 'Upload Waste Photo',
+              desc: 'Click a photo of your segregated waste and upload it — our AI will analyze your sorting quality instantly',
               color: 'var(--primary)',
               bg: 'var(--primary-50)',
             },
@@ -151,8 +151,8 @@ const Home = () => {
                   <line x1="8" y1="11" x2="14" y2="11" />
                 </svg>
               ),
-              title: 'Analyze',
-              desc: 'AI scans each item, rates your segregation quality, and awards eco-points for good habits',
+              title: 'Get AI Analysis & Points',
+              desc: 'AI scans your waste, rates your segregation from Good to Needs Work, and rewards you with Green Points',
               color: 'var(--accent)',
               bg: 'var(--accent-50)',
             },
@@ -160,12 +160,12 @@ const Home = () => {
               num: '3',
               icon: (
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                  <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
+                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                  <path d="M12 6v6l4 2" />
                 </svg>
               ),
-              title: 'Redeem',
-              desc: 'Convert your eco-points into real tree plantations and track their growth over time',
+              title: 'Plant Trees for Bonus GP',
+              desc: 'Start a Plant Quest, upload regular growth stages to earn bonus points — the more you plant, the more you earn',
               color: 'var(--purple)',
               bg: 'var(--purple-bg)',
             },
@@ -264,7 +264,7 @@ const Home = () => {
             Gamification
           </div>
           <h2 className="features-section-title">Level Up Your Impact</h2>
-          <p className="features-section-subtitle">Every sorted bag and every planted tree pushes you to the next rank</p>
+          <p className="features-section-subtitle">Every upload and every planted tree pushes you to the next rank</p>
         </div>
 
         <div className="home-level-cards">
@@ -336,7 +336,7 @@ const Home = () => {
             Why GreenPulse
           </div>
           <h2 className="features-section-title">Built for the Planet</h2>
-          <p className="features-section-subtitle">From smart waste analysis to real tree planting — everything in one place</p>
+          <p className="features-section-subtitle">From smart waste analysis to real tree planting and rewards — everything in one place</p>
         </div>
 
         <div style={{
@@ -347,12 +347,12 @@ const Home = () => {
           margin: '0 auto',
         }}>
           {[
-            { icon: '🤖', title: 'AI Waste Classification', desc: 'AI instantly identifies and classifies your segregated waste, rating it from Good to Needs Work', color: 'var(--primary)' },
-            { icon: '📊', title: 'Segregation Score', desc: 'Get a detailed breakdown of your sorting with actionable tips to improve your segregation quality', color: 'var(--accent)' },
-            { icon: '🏆', title: 'Level Progression', desc: 'Climb 6 ranks from Seedling to Planet Savior — the more you sort and plant, the faster you level up', color: '#f59e0b' },
-            { icon: '🎟️', title: 'Real-World Rewards', desc: 'Cash in your eco-points for discount coupons, partner deals, and tangible benefits', color: 'var(--purple)' },
-            { icon: '📸', title: 'Snap & Track', desc: 'Photograph your waste or your growing plants — our AI verifies every step and logs your impact', color: 'var(--primary)' },
-            { icon: '🌳', title: 'Plant Quests', desc: 'Start a tree, upload growth stages, watch it thrive — every verified plant earns you eco-points', color: '#059669' },
+            { icon: '🤖', title: 'AI Waste Classification', desc: 'Upload a photo of your segregated waste and our AI instantly identifies each item and rates your sorting quality', color: 'var(--primary)' },
+            { icon: '📊', title: 'Segregation Score', desc: 'Get a detailed score from Good to Needs Work with feedback on how to improve your waste segregation', color: 'var(--accent)' },
+            { icon: '🌱', title: 'Plant Quests', desc: 'Spend your GP to start a tree plantation, upload growth stages regularly, and earn bonus points for consistency', color: '#059669' },
+            { icon: '🎟️', title: 'Redeem for Rewards', desc: 'Convert your earned Green Points into real discount coupons and partner deals — your eco-habits pay off', color: 'var(--purple)' },
+            { icon: '🏆', title: 'Level Progression', desc: 'Climb 6 ranks from Seedling to Planet Savior — upload more waste photos and plant more trees to level up faster', color: '#f59e0b' },
+            { icon: '📸', title: 'Track Your Impact', desc: 'View your complete history of waste uploads, AI analyses, plant growth stages, and earned rewards all in one place', color: 'var(--primary)' },
           ].map((f) => (
             <div key={f.title} style={{
               padding: '28px',
@@ -467,17 +467,17 @@ const Home = () => {
 
           {/* Orbiting avatar 2 */}
           <div className="home-orbit-avatar home-orbit-avatar-2">
-            <span style={{ fontSize: '20px' }}>📊</span>
+            <span style={{ fontSize: '20px' }}>🌱</span>
           </div>
 
           {/* Orbiting avatar 3 */}
           <div className="home-orbit-avatar home-orbit-avatar-3">
-            <span style={{ fontSize: '20px' }}>🏆</span>
+            <span style={{ fontSize: '20px' }}>🎟️</span>
           </div>
 
           {/* Orbiting avatar 4 */}
           <div className="home-orbit-avatar home-orbit-avatar-4">
-            <span style={{ fontSize: '20px' }}>⚡</span>
+            <span style={{ fontSize: '20px' }}>📊</span>
           </div>
 
           {/* Floating particles */}
@@ -504,11 +504,11 @@ const Home = () => {
         </div>
 
         <h2 className="home-cta-title">
-          Join the Eco-Revolution
+          Start Earning Green Points Today
         </h2>
         <p className="home-cta-subtitle">
-          Thousands are already sorting smarter and planting trees.
-          Your turn — sign up, it&apos;s free!
+          Upload your first waste photo, earn GP, plant trees for bonus points,
+          and redeem them for real rewards — it&apos;s free!
         </p>
 
         {/* Mini user avatars stack */}
@@ -568,7 +568,7 @@ const Home = () => {
               background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)',
               animation: 'btnShimmer 3s ease-in-out infinite',
             }} />
-            Start Your Eco-Quest
+            Create Free Account
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
             </svg>
