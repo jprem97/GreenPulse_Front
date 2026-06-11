@@ -44,21 +44,21 @@ const Home = () => {
         </div>
 
         <h1 className="hero-title" style={{ maxWidth: '800px' }}>
-          Upload <span style={{
+          Turn Your <span style={{
             background: 'linear-gradient(90deg, var(--primary) 0%, var(--accent) 25%, var(--primary) 50%, var(--accent) 75%, var(--primary) 100%)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
             animation: 'textShimmer 4s linear infinite',
-          }}>Segregated Waste</span>, Earn <span style={{
+          }}>Waste</span> Into <span style={{
             background: 'linear-gradient(90deg, var(--primary) 0%, var(--accent) 25%, var(--primary) 50%, var(--accent) 75%, var(--primary) 100%)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
             animation: 'textShimmer 4s linear infinite 0.5s',
-          }}>Green Points</span>
+          }}>Worth</span>
         </h1>
 
         <p className="hero-subtitle" style={{ maxWidth: '580px' }}>
@@ -136,8 +136,8 @@ const Home = () => {
                   <circle cx="12" cy="13" r="4" />
                 </svg>
               ),
-              title: 'Upload Waste Photo',
-              desc: 'Click a photo of your segregated waste and upload it — our AI will analyze your sorting quality instantly',
+              title: 'Scan',
+              desc: 'Photograph your segregated waste and upload it — AI instantly identifies each item',
               color: 'var(--primary)',
               bg: 'var(--primary-50)',
             },
@@ -151,8 +151,8 @@ const Home = () => {
                   <line x1="8" y1="11" x2="14" y2="11" />
                 </svg>
               ),
-              title: 'Get AI Analysis & Points',
-              desc: 'AI scans your waste, rates your segregation from Good to Needs Work, and rewards you with Green Points',
+              title: 'Analyse',
+              desc: 'AI rates your segregation quality and awards you Green Points based on your sorting',
               color: 'var(--accent)',
               bg: 'var(--accent-50)',
             },
@@ -160,12 +160,12 @@ const Home = () => {
               num: '3',
               icon: (
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                  <path d="M12 6v6l4 2" />
+                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+                  <path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" />
                 </svg>
               ),
-              title: 'Plant Trees for Bonus GP',
-              desc: 'Start a Plant Quest, upload regular growth stages to earn bonus points — the more you plant, the more you earn',
+              title: 'Redeem',
+              desc: 'Convert your earned Green Points into real discount coupons and exciting rewards',
               color: 'var(--purple)',
               bg: 'var(--purple-bg)',
             },
@@ -232,6 +232,15 @@ const Home = () => {
               {i < 2 && <StepConnector />}
             </div>
           ))}
+        </div>
+
+        {/* BONUS BY PLANTS */}
+        <div className="home-bonus-box">
+          <div className="home-bonus-icon">🌿</div>
+          <div className="home-bonus-text">
+            <h4>Earn Bonus GP by Planting</h4>
+            <p>Spend your points to start a Plant Quest, upload growth stages regularly, and earn extra Green Points for staying consistent</p>
+          </div>
         </div>
       </div>
 

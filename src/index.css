@@ -1982,6 +1982,46 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: auto;
 }
 
+.home-bonus-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 520px;
+  margin: 40px auto 0;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--primary-50) 0%, #ecfdf5 100%);
+  border: 1.5px solid var(--primary-200);
+  border-radius: var(--radius-xl);
+  text-align: left;
+}
+
+.home-bonus-icon {
+  font-size: 36px;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.1);
+}
+
+.home-bonus-text h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-700);
+  margin-bottom: 4px;
+}
+
+.home-bonus-text p {
+  font-size: 13px;
+  color: var(--gray-500);
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
@@ -2045,6 +2085,10 @@ h1, h2, h3, h4, h5, h6 {
   .home-step-wrapper { flex-direction: column; gap: 0; width: 100%; max-width: 320px; }
   .home-step-card { width: 100%; }
   .home-step-connector { transform: rotate(90deg); padding: 4px 0; }
+  .home-bonus-box { margin: 32px 16px 0; padding: 16px 18px; gap: 12px; }
+  .home-bonus-icon { width: 44px; height: 44px; font-size: 28px; }
+  .home-bonus-text h4 { font-size: 14px; }
+  .home-bonus-text p { font-size: 12px; }
 
   /* Home page - Level showcase */
   .home-level-section { display: none; }
