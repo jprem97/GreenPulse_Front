@@ -239,7 +239,7 @@ const Home = () => {
           <div className="home-bonus-icon">🌿</div>
           <div className="home-bonus-text">
             <h4>Earn Bonus GP by Planting</h4>
-            <p>Spend your points to start a Plant Quest, upload growth stages regularly, and earn extra Green Points for staying consistent</p>
+            <p>Start a Plant Quest, upload growth stages regularly, and earn extra Green Points for staying consistent</p>
           </div>
         </div>
       </div>
