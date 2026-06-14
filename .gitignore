@@ -22,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+BRANDING_GUIDE.md
+LOGO_IMPLEMENTATION.md
